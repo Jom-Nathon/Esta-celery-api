@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+pydantic-settings
+selenium
+psycopg2-binary
+celery
+redis
+typing-extensions
+sqlmodel
