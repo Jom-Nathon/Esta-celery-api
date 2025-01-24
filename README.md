@@ -13,12 +13,12 @@ A modern FastAPI template with SQLAlchemy integration.
 ## Installation
 
 1. Clone the repository
-2. Create a virtual environment:   ```bash
+2. Create a virtual environment:   ```
    python -m venv env  ```
-3. Install dependencies:   ```bash
+3. Install dependencies:   ```
    pip install -r requirements.txt   ```
 
 ## Running the Application
 
-```bash
+```
 uvicorn app.main 
