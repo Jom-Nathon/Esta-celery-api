@@ -14,8 +14,7 @@ A modern FastAPI template with SQLAlchemy integration.
 
 1. Clone the repository
 2. Create a virtual environment:   ```bash
-   python -m venv env
-   source env/bin/activate  # On Windows: env\Scripts\activate   ```
+   python -m venv env  ```
 3. Install dependencies:   ```bash
    pip install -r requirements.txt   ```
 
