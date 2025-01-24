@@ -5,9 +5,9 @@ A modern FastAPI template with SQLAlchemy integration.
 ## Features
 
 - FastAPI framework
-- SQLAlchemy ORM
-- Pydantic models
-- API versioning
+- SQLModel
+- Celery Worker
+- Connection to Redis broker
 - Structured project layout
 
 ## Installation
