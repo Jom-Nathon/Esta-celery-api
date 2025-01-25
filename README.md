@@ -5,21 +5,20 @@ A modern FastAPI template with SQLAlchemy integration.
 ## Features
 
 - FastAPI framework
-- SQLAlchemy ORM
-- Pydantic models
-- API versioning
+- SQLModel
+- Celery Worker
+- Connection to Redis broker
 - Structured project layout
 
 ## Installation
 
 1. Clone the repository
-2. Create a virtual environment:   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate   ```
-3. Install dependencies:   ```bash
+2. Create a virtual environment:   ```
+   python -m venv env  ```
+3. Install dependencies:   ```
    pip install -r requirements.txt   ```
 
 ## Running the Application
 
-```bash
+```
 uvicorn app.main 
