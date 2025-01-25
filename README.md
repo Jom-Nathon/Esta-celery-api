@@ -23,3 +23,9 @@ A modern FastAPI template with SQLAlchemy integration.
 ```
 uvicorn app.main:app --reload
 celery -A app.celery_worker worker
+```
+
+## Testing UI
+```
+http://127.0.0.1:8000/docs#/
+```
