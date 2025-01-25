@@ -2,8 +2,7 @@ from datetime import datetime
 
 from sqlmodel import Field, SQLModel
 
-class Plot(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+class PlotBase(SQLModel):
     lot : str = Field(index=True)
     saleOrder : str = Field(index=True)
     case : str = Field(index=True)
@@ -15,4 +14,12 @@ class Plot(SQLModel, table=True):
     province : str = Field(index=True)
     created_at: datetime = Field(default=datetime.now)
     isAvailable: bool = Field(default=True)
+
+class Plot(PlotBase, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+
+class PlotCreate(PlotBase):
+    pass
     
+class PlotRead(PlotBase):
+    pass

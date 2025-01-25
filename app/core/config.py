@@ -13,8 +13,8 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = "plotDB"
 
     # Celery
-    CELERY_BROKER_URL: str = "redis://localhost:32779"
-    CELERY_RESULT_BACKEND: str = "redis://localhost:32779"
+    CELERY_BROKER_URL: str = "redis://localhost:32768"
+    CELERY_RESULT_BACKEND: str = "redis://localhost:32768"
 
     DATABASE_URL: str = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
     

@@ -1,30 +1,52 @@
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
-from sqlalchemy.orm import Session
 from typing import List
 from app.db.database import get_session, create_db_and_tables
-from app.models.plot import Plot
+from app.models.plot import Plot, PlotRead, PlotCreate
 from app.celery_worker import getPlotInfo
 
 from typing import Annotated
 from fastapi import Depends, HTTPException
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlmodel import Field, Session, SQLModel, create_engine, select, delete
 
 router = APIRouter()
 
-Sessiondep = Annotated[Session, Depends(get_session)]
+session = next(get_session())
 
-@router.post("/scrape/")
-async def start_scraping(db: Sessiondep, plot: str):
-    plot = db.add(Plot).filter(Plot.province == plot).first()
-    if plot is not None:
-        #delete all previous plot then scrape
-        print("deleteus")
-    task = getPlotInfo.delay(plot)
-    return {"message": "Scraping started", "task_id": task.id}
+@router.post("/delete/{province}")
+def deletePlot(province: str):
+    try:
+        statement = select(Plot).where(Plot.province == province)
+        plots = session.exec(statement).all()
+        
+        delete_statement = delete(Plot).where(Plot.province == province)
+        session.exec(delete_statement)
+        session.commit()
+
+        return {
+            "message": f"Successfully deleted {len(plots)} plots from {province}",
+            "count": len(plots)
+        }
+        
+    except Exception as e:
+        print(e)
+
+@router.post("/scrape/{province}")
+async def scrape(province: str):
+    """Start scraping plots for a given area"""
+    try:
+        task = getPlotInfo(province)
+        return {
+            "message": "Scraping Done!",
+            "area": province
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"{str(e)}"
+        )
 
 @router.get("/all_plots/")
 def read_plots(
-    session: Sessiondep,
     offset: int = 0,
     limit: int = 100,
 ) -> list[Plot]:
@@ -32,8 +54,8 @@ def read_plots(
     return allPlot
 
 @router.get("/plots/{plot_id}")
-def read_plot(db: Sessiondep, plot_id: int):
-    plot = db.add(Plot).filter(Plot.id == plot_id).first()
+def read_plot(plot_id: int):
+    plot = session.add(Plot).filter(Plot.id == plot_id).first()
     if plot is None:
         raise HTTPException(status_code=404, detail="Plot not found")
     return plot
