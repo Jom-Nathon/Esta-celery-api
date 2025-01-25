@@ -1,6 +1,6 @@
 # FastAPI Template
 
-A modern FastAPI template with SQLAlchemy integration.
+A modern FastAPI template with SQLModel integration with Celery worker.
 
 ## Features
 
