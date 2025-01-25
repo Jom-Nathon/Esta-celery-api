@@ -21,4 +21,5 @@ A modern FastAPI template with SQLAlchemy integration.
 ## Running the Application
 
 ```
-uvicorn app.main 
+uvicorn app.main:app --reload
+celery -A app.celery_worker worker
